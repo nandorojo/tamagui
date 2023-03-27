@@ -27,6 +27,7 @@ export function useAnimatedNumber(
       return val.value
     },
     stop() {
+      'worklet'
       cancelAnimation(val)
     },
     setValue(next: number, config = { type: 'spring' }) {
