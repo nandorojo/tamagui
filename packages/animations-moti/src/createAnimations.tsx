@@ -83,6 +83,8 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
             if (isTransform(styleKey) && animatedKeys.has('transform')) {
               // example: this style is "scale" and animateOnly={['transform']}
               // we don't want to remove the transform array, since we're implying: animate all transforms
+
+              // is this even possible? as in, will style.scale ever exist? or will it only ever be a transform array?
               return
             }
             if (!animatedKeys.has(styleKey)) {
