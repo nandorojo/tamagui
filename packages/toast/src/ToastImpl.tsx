@@ -132,7 +132,7 @@ type ToastImplProps = ToastImplPrivateProps &
      */
     viewportName?: string
     /**
-     * 
+     *
      */
     id?: string
   }
@@ -166,15 +166,15 @@ const ToastImpl = React.forwardRef<TamaguiElement, ToastImplProps>(
     const { onToastAdd, onToastRemove } = context
     const handleClose = useEvent(() => {
       if (!isPresent) {
-          // already removed from the react tree
-          return
-        }
-        // focus viewport if focus is within toast to read the remaining toast
-        // count to SR users and ensure focus isn't lost
-        if (isWeb) {
-          const isFocusInToast = (node as HTMLDivElement)?.contains(document.activeElement)
-          if (isFocusInToast) context.viewport?.focus()
-        }
+        // already removed from the react tree
+        return
+      }
+      // focus viewport if focus is within toast to read the remaining toast
+      // count to SR users and ensure focus isn't lost
+      if (isWeb) {
+        const isFocusInToast = (node as HTMLDivElement)?.contains(document.activeElement)
+        if (isFocusInToast) context.viewport?.focus()
+      }
       onClose()
     })
 
@@ -248,6 +248,7 @@ const ToastImpl = React.forwardRef<TamaguiElement, ToastImplProps>(
     const AnimatedView = (driver['NumberView'] ?? driver.View) as typeof Animated.View
 
     const animatedStyles = useAnimatedNumberStyle(animatedNumber, (val) => {
+      'worklet'
       return {
         transform: [isHorizontalSwipe ? { translateX: val } : { translateY: val }],
       }

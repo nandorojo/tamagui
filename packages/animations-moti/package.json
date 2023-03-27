@@ -1,5 +1,5 @@
 {
-  "name": "@tamagui/animations-react-native",
+  "name": "@tamagui/animations-moti",
   "version": "1.9.10",
   "source": "src/index.ts",
   "sideEffects": [
@@ -21,12 +21,11 @@
   },
   "devDependencies": {
     "@tamagui/build": "1.9.10",
+    "moti": "0.25.0-alpha.14",
+    "raf": "3.4.1",
     "react": "^18.2.0",
-    "react-native": "^0.71.4"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react-native": "^0.71.4",
+    "setimmediate": "1.0.5"
   },
   "scripts": {
     "build": "tamagui-build",

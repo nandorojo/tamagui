@@ -262,7 +262,7 @@ const SheetImplementation = themeable(
     }
 
     const disableDrag = disableDragProp ?? controller?.disableDrag
-    const keyboardIsVisible = useKeyboardVisible();
+    const keyboardIsVisible = useKeyboardVisible()
     const themeName = useThemeName()
     const contentRef = React.useRef<TamaguiElement>(null)
     const scrollBridge = useConstant<ScrollBridge>(() => ({
@@ -552,6 +552,7 @@ const SheetImplementation = themeable(
     })
 
     const animatedStyle = useAnimatedNumberStyle(animatedNumber, (val) => {
+      'worklet'
       const translateY = frameSize === 0 ? HIDDEN_SIZE : val
       return {
         transform: [{ translateY }],
@@ -576,15 +577,18 @@ const SheetImplementation = themeable(
       [zIndex]
     )
 
-    const handleLayout = useCallback((e) => {
-      let next = e.nativeEvent?.layout.height
-      if (isWeb && isTouchable && !open) {
-        // temp fix ios bug where it doesn't go below dynamic bottom...
-        next += 100
-      }
-      if (!next) return
-      setFrameSize(() => next)
-    }, [keyboardIsVisible])
+    const handleLayout = useCallback(
+      (e) => {
+        let next = e.nativeEvent?.layout.height
+        if (isWeb && isTouchable && !open) {
+          // temp fix ios bug where it doesn't go below dynamic bottom...
+          next += 100
+        }
+        if (!next) return
+        setFrameSize(() => next)
+      },
+      [keyboardIsVisible]
+    )
 
     const removeScrollEnabled = forceRemoveScrollEnabled ?? (open && modal)
 
