@@ -68,8 +68,16 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
         let animate = style
         if (animateOnly.length) {
           // immutable prop
-          animate = { ...style }
-          const animatedKeys = new Set(props.animateOnly)
+          animate = Object.assign({}, style)
+          const animatedKeys = new Set(
+            // we have to see about this...
+            // but for now, if you specify *any* transform in animateOnly, all transforms animate
+            // 🤷‍♂️
+            // to avoid this, we'd need to deconstruct the transform array and flatten it into the array
+            // moti does support this, so we could do it if we want
+            // but i haven't...
+            animateOnly.map((key: string) => (isTransform(key) ? 'transform' : key))
+          )
 
           Object.entries(style).forEach(([styleKey, value]) => {
             if (isTransform(styleKey) && animatedKeys.has('transform')) {
@@ -78,6 +86,7 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
               return
             }
             if (!animatedKeys.has(styleKey)) {
+              // this is a non-animated style
               nonAnimatedStyle ??= {}
               nonAnimatedStyle[styleKey] = value
 
@@ -91,7 +100,7 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
           nonAnimatedStyle,
         }
         // TODO
-        // is style's reference ever stable? i hate to json-stringify...
+        // is style's reference ever stable? i hate to json-stringify, but...
       }, [JSON.stringify(style ?? {}), ...animateOnly])
 
       const motified = useMotify({
