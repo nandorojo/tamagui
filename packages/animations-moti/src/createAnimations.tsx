@@ -44,7 +44,7 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
         ? props.animation
         : [props.animation]
       const animateOnly = props.animateOnly ?? []
-      let transition = animations[animationKey as any]
+      let transition = animations[animationKey]
       if (!transition) {
         // @natew is this necessary? probably safer, but it will work with moti without setting this from the theme...
         return null
