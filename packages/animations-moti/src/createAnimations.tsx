@@ -35,7 +35,7 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
        *
        * ```jsx
        * <Stack
-       *   animate={['opacity', { type: 'timing', duration: 200 }]}
+       *   animate={['quick', { type: 'timing', duration: 200 }]}
        * />
        * ```
        */
