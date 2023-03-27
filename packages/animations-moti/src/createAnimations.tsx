@@ -1,3 +1,4 @@
+// moti 🐼 animation driver by fernando rojo (https://moti.fyi)
 import { usePresence } from '@tamagui/use-presence'
 import { AnimationDriver } from '@tamagui/web'
 import type { TransitionConfig } from 'moti'
@@ -61,8 +62,6 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
         console.log('Moti animation', style, { isEntering, isExiting })
       }
 
-      // TODO do we need to reformat Tamagui shorthands to proper values by reading in the config?
-
       const { animate, nonAnimatedStyle } = useMemo(() => {
         // generate moti animate prop, and the plain style object
         let nonAnimatedStyle: Record<string, any> | undefined
@@ -91,13 +90,17 @@ export function createAnimations<Config extends Record<string, TransitionConfig>
           animate,
           nonAnimatedStyle,
         }
-      }, [style, ...animateOnly])
+        // TODO
+        // is style's reference ever stable? i hate to json-stringify...
+      }, [JSON.stringify(style ?? {}), ...animateOnly])
 
       const motified = useMotify({
         transition,
         animate,
-        // @natew
+        // @nandorojo to @natew:
         // can you confirm that i don't need to pass these?
+        // in the future, it would be useful if we did to avoid extra renders on mount
+
         // from: pseudos?.enterStyle as any,
         // exit: pseudos?.exitStyle as any,
 
