@@ -50,6 +50,7 @@ export function useAnimatedNumberReaction(
   const callback = useCallback<typeof cb>((props) => cb(props), [cb])
   useAnimatedReaction(
     () => {
+      'worklet'
       return value.getValue()
     },
     (result, prev) => {
@@ -65,12 +66,13 @@ export function useAnimatedNumberStyle<
 >(
   value: V,
   /**
-   * `getStyle()` must be marked as a `worklet`
+   * `getStyle(number)` must be marked as a `worklet`
    */
   getStyle: (value: number) => any
 ) {
   return useAnimatedStyle(() => {
     'worklet'
     return getStyle(value.getValue())
+    // this array is necessary for web
   }, [value, getStyle])
 }
